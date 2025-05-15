@@ -1,0 +1,10 @@
+{
+	"profiles": {
+		"enova365": {
+			"commandName": "Executable",
+			"executablePath": "C:\\Program Files (x86)\\Soneta\\enova365 2504.2.2\\SonetaExplorer.exe",
+			"commandLineArgs": "--extpath=. --settings=settings.xml --nodbextensions"
+		}
+	}
+}
+
