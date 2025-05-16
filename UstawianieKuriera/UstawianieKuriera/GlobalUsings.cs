@@ -1,0 +1,10 @@
+global using System;
+global using System.Linq;
+global using System.Text;
+global using Soneta.Business;
+global using Soneta.CRM;
+global using Soneta.Handel;
+global using Soneta.Tools;
+global using Soneta.Types;
+global using UstawianieKuriera;
+global using env = System.Environment;

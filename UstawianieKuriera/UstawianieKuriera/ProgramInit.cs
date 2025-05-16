@@ -1,6 +1,4 @@
-﻿using Soneta.Business;
-using Soneta.Business.App;
-using UstawianieKuriera;
+﻿using Soneta.Business.App;
 
 [assembly: ProgramInitializer(typeof(ProgramInit))]
 [assembly: Service(typeof(ILoginListener), typeof(ProgramInit), ServiceScope.Login)]

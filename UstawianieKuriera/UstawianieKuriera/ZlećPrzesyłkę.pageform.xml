@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataForm 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://www.enova.pl/schema/form.xsd" 
+    xsi:schemaLocation="http://www.enova.pl/schema/ http://www.enova.pl/schema/form.xsd"
+    DataType="Soneta.Handel.DokumentHandlowy,Soneta.Handel"
+    Priority="1000000000" >
+
+	<Page Name="ZlecPrzesylkePage" CaptionHtml="Zlecenie przesyłki" DataContext="{new ZlecPrzesylkeExtender}" Visibility ="{JestKurier}">
+		<Group CaptionHtml="Zleć przesyłkę">
+      <Row>
+        <Field LabelWidth="10" EditValue="{KurierInfo.Region}" CaptionHtml="Region" Width="25"/>
+        <Field LabelWidth="10" EditValue="{KurierInfo.Kurier}" CaptionHtml="Kurier" Width="25"/>
+      </Row>
+      <Row>
+				<Field LabelWidth="20" EditValue="{Dokument.Features.CzasZlecenia}" CaptionHtml="Czas zlecenia przesyłki" Width="20"/>
+      </Row>
+
+      <Command CaptionHtml="Zleć Przesyłkę" MethodName="ZlećPrzesyłkę"/> 
+		
+			
+
+		</Group>
+		
+		
+
+		
+
+	</Page>
+
+</DataForm>

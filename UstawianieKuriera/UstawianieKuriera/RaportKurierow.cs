@@ -1,42 +1,35 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using Soneta.Business;
-using Soneta.CRM;
-using Soneta.Handel;
-using Soneta.Types;
-using UstawianieKuriera;
-
-[assembly: Worker(typeof(RaportKurierow),typeof(DokHandlowe))]
+﻿[assembly: Worker(typeof(RaportKurierow),typeof(DokHandlowe))]
 namespace UstawianieKuriera;
-
 public class RaportKurierow
 {
   [Context] public DokumentHandlowy[] Dokumenty { get; set; }
+  [Context] public Params Parametry { get; set; }
 
 
   [Action("Generuj raport",
     Mode = ActionMode.SingleSession,
     Target = ActionTarget.ToolbarWithText)]  
-  public object UtworzRaport(Context cx) {
+  public object UtworzRaport() {
     if(!Dokumenty?.Any() ?? false) return "Zaznacz faktury.";
 
-    var raport = Dokumenty!.Select(d => d.Features.GetString("Kurier"))
-      .Where(k=>!string.IsNullOrWhiteSpace(k))
-      .GroupBy(k => k)
+    var doks = Dokumenty!.Where(d => !string.IsNullOrWhiteSpace(d.Kurier())).ToArray();
+    var okres = new FromTo(Dokumenty.Select(d => d.Data).Min(),Dokumenty.Select(d => d.Data).Max());
+    var raport = doks.Select(d=>d.Kurier()).GroupBy(k => k)
       .Select(k => new { kurier = k.Key,liczba = k.Count() });
 
-    var nazwaRaportu = Date.Today.ToString("yyyy-MM-dd")
-      + " - Raport kurierów ";
-    var raportTxt = nazwaRaportu + Environment.NewLine
-      + string.Join(Environment.NewLine,
-        raport.Select(k => k.kurier + ": " + k.liczba).ToArray());
+    var raportTxt = Parametry.TytułRaportu + " za okres: " + okres + env.NewLine
+      + string.Join(env.NewLine, raport.Select(k => k.kurier + ": " + k.liczba).ToArray()) + env.NewLine
+      + "Raport przygotował: " + Dokumenty.First().Session.Login.Operator.Name;
 
 #if DEBUG
     new Log("DebugInfo",true).WriteLine(raportTxt);
 #endif
 
-    return new NamedStream(nazwaRaportu+".txt",
-      Encoding.UTF8.GetBytes(raportTxt));
+    return new NamedStream(Parametry.TytułRaportu + ".txt",Encoding.UTF8.GetBytes(raportTxt));
+  }
+
+  public class Params {
+    public string TytułRaportu { get; set; } = 
+      Date.Today.ToString("yyyy-MM-dd") + " - Raport kurierów";
   }
 }
