@@ -9,11 +9,12 @@ class ProgramInit : ILoginListener, IProgramInitializer
   static ProgramInit() {
     Soneta.Handel.HandelModule.DokumentHandlowySchema
       //taka dziwaczna z pozoru konstrukcja odczytuje wartość cechy
-      //po czym przypisuje ją do niej ponownie czym wywołuje cały kod
-      //na niej zdefiniowany do weryfikacji poprawności,
-      //który zadziała już na nowowybranym kontrahencie. 
-      .AddKontrahentAfterEdit(row => { 
-        row.Features["Kurier"] = row.Features["Kurier"]; });
+      //po czym przypisuje ją do niej ponownie czym wywołuje cały kod settera
+      //na niej zdefiniowana jest weryfikacja poprawności,
+      //która zadziała już na nowowybranym kontrahencie. 
+      .AddKontrahentAfterEdit(row => {
+        //najlepiej byłoby użyć (rozbudować) FeaturesExtension
+        row.Features["Kurier"] = row.Features["Kurier"]; }); 
   }
 
   public void Initialize() { }

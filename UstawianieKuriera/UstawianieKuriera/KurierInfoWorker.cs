@@ -4,6 +4,7 @@ public class KurierInfoWorker
 {
   [Context] public DokumentHandlowy Dokument { get; set; }
   public string Kurier => Dokument.Kurier();
+  public bool JestKurier => !string.IsNullOrEmpty(Kurier);
   public string Region => Dokument.Region();
   public Date PoprzedniaWysyłka { get {
       if(Dokument == null || string.IsNullOrWhiteSpace(Kurier)) return Date.Empty;

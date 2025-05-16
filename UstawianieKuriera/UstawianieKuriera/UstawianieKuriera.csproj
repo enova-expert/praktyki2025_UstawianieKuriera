@@ -3,4 +3,7 @@
   <PropertyGroup>
     <TargetFramework>$(SonetaTargetFramework)</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="ZleceniePrzesylki.pageform.xml" />
+  </ItemGroup>
 </Project>

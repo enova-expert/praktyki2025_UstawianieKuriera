@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<DataForm 
+  DataType="Soneta.Handel.DokumentHandlowy,Soneta.Handel"
+  Priority="1000000000" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.enova.pl/schema/form.xsd" 
+  xsi:schemaLocation="http://www.enova.pl/schema/ http://www.enova.pl/schema/form.xsd">
+
+  <Page Name="ZlecaniePrzesylkiPage" CaptionHtml="Zleć przesyłkę" DataContext="{new ZlecPrzesylkeExtender}" Visibility="{KurierInfo.JestKurier}">
+    <Group CaptionHtml="Kurier info" >
+      <Field LabelWidth="10" EditValue="{KurierInfo.Region}" CaptionHtml="Region" Width="10"/>
+      <!--  <Field LabelWidth="10" EditValue="{KurierInfo.Kurier}" CaptionHtml="Kurier" Width="20"/>  -->
+      <Field LabelWidth="10" EditValue="{Dokument.Features.Kurier}" CaptionHtml="Kurier" Width="20"/>
+    </Group>
+
+    <Include Source="{GetUI()}"/>
+
+    <Row>
+      <Command CaptionHtml="Zleć przesyłkę" MethodName="ZlećPrzesyłkę" IsReadOnly="{NieMożnaZlecić}" />
+    </Row>
+    <Group CaptionHtml="Zlecenie" >
+      <Row>
+        <Field LabelWidth="20" EditValue="{PrzesyłkaID}" CaptionHtml="ID przesyłki" Width="70"/>
+      </Row>
+      <Row>
+        <Field LabelWidth="20" EditValue="{CzasZlecenia}" CaptionHtml="Czas zlecenia przesyłki" Width="30"/>
+      </Row>
+    </Group>
+  </Page>
+</DataForm>
+
